@@ -148,3 +148,46 @@ describe('union', function () {
 });
 
 
+describe('intersection', function () {
+    test('interval1 before interval2', () => {
+        let interval1 = new Interval(0,3) 
+        let interval2 = new Interval(4,6)
+        expect(interval1.intersection(interval2)).toBeNull()
+    });
+
+    test('interval2 before interval1', () => {
+        let interval1 = new Interval(4,6) 
+        let interval2 = new Interval(0,3)
+        expect(interval1.intersection(interval2)).toBeNull()
+    });
+
+    test('interval1 inside interval2', () => {
+        let interval1 = new Interval(1,3) 
+        let interval2 = new Interval(0,6)
+        expect(interval1.intersection(interval2)).toBe(interval1)
+    });
+    
+    test('interval2 inside interval1', () => {
+        let interval1 = new Interval(0,6) 
+        let interval2 = new Interval(1,3)
+        expect(interval1.intersection(interval2)).toBe(interval2)
+    });
+
+    test('before and inside', () => {
+        let interval1 = new Interval(0,4) 
+        let interval2 = new Interval(2,6)
+        expect(interval1.intersection(interval2)).toEqual(new Interval(2,4))
+    });
+
+    test('inside and after', () => {
+        let interval1 = new Interval(4,8) 
+        let interval2 = new Interval(2,6)
+        expect(interval1.intersection(interval2)).toEqual(new Interval(4,6))
+    });
+
+    test('same', () => {
+        let interval1 = new Interval(0,10) 
+        let interval2 = new Interval(0,10)
+        expect(interval1.intersection(interval2)).toEqual(new Interval(0,10))
+    });
+});

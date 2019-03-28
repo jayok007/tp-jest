@@ -63,20 +63,16 @@ class Interval {
      * @returns {Interval[]}
      */
     union(interval) {
-        if(!this.overlaps(interval) || !interval.overlaps(this))
-        {
+        if(!this.overlaps(interval) || !interval.overlaps(this)){
             return [this,interval]
         }
-        else if(this.includes(interval))
-        {
+        else if(this.includes(interval)){
             return [this]
         }
-        else if(interval.includes(this))
-        {
+        else if(interval.includes(this)){
             return [interval]
         }
-        else
-        {
+        else{
             let union_start = Math.min(this.start,interval.start)
             let union_end = Math.max(this.end,interval.end)
             return [new Interval(union_start, union_end)]
@@ -102,7 +98,21 @@ class Interval {
      * @returns {Interval|null}
      */
     intersection(interval) {
-
+        if(this.includes(interval)){
+            return interval
+        }
+        else if (interval.includes(this)){
+            return this
+        }
+        else if (this.overlaps(interval)){
+            if(interval.start <= this.start){
+                return new Interval(this.start, interval.end)
+            }
+            else{
+                return new Interval(interval.start, this.end)
+            }
+        }
+        return null
     };
 
     /**
