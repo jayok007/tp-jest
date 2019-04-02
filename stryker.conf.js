@@ -7,7 +7,7 @@ module.exports = function(config) {
     transpilers: [],
     coverageAnalysis: "off",
     thresholds: {
-      break: 80, // Fail if mutation score < 70
+      break: 10, // Fail if mutation score < 70
       // ..
     }
   });
